@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "env": {
+    "PORT": "9999",
+    "MONGO_URI":"mongodb+srv://armankhanikiryan:93285797a@node-vercel-cluster.cpc5cyl.mongodb.net/",
+    "CLIENT_URL":"https://realtime-chat-client.vercel.app",
+    "ACCESS_TOKEN_SECRET":"GENERATE_YOUR_RANDOM_TOKEN",
+    "REFRESH_TOKEN_SECERT":"GENERATE_YOUR_RANDOM_TOKEN",
+    "COOKIE_SIGNATURE":"GENERATE_YOUR_RANDOM_SIGNATURE"
+  },
+  "builds": [
+    {
+      "src": "./index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }
+  ]
+}
