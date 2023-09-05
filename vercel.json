@@ -3,10 +3,11 @@
   "env": {
     "PORT": "9999",
     "MONGO_URI":"mongodb+srv://armankhanikiryan:93285797a@node-vercel-cluster.cpc5cyl.mongodb.net/",
-    "CLIENT_URL":"https://realtime-chat-client.vercel.app",
     "ACCESS_TOKEN_SECRET":"GENERATE_YOUR_RANDOM_TOKEN",
     "REFRESH_TOKEN_SECERT":"GENERATE_YOUR_RANDOM_TOKEN",
-    "COOKIE_SIGNATURE":"GENERATE_YOUR_RANDOM_SIGNATURE"
+    "COOKIE_SIGNATURE":"GENERATE_YOUR_RANDOM_SIGNATURE",
+    "PROD_CLIENT_URL=https": "//realtime-chat-client.vercel.app",
+    "DEV_CLIENT_URL=http":"//localhost:3000"
   },
   "builds": [
     {
