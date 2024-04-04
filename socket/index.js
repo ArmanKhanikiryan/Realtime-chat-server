@@ -26,7 +26,6 @@ const initSocket = (server) => {
       onlineUsers = onlineUsers.filter(({ userId }) => userId !== logoutUserId)
       io.emit('ONLINE_USER_CHANGED', onlineUsers)
     })
-
     socket.on('SEND_MESSAGE', async (messageData) => {
       const { type, sender, receiver } = messageData
         
@@ -46,7 +45,6 @@ const initSocket = (server) => {
     })
 
     socket.on('UPDATE_MESSAGE_STATUS', ({ type, readerId, messageSender }) => {
-      // messageSender 的訊息被 readerId 已讀
       const socketId = type === 'room' 
         ? messageSender 
         : onlineUsers.find(({ userId }) => userId === messageSender)?.socketId
@@ -77,16 +75,12 @@ const initSocket = (server) => {
 
     socket.on('ENTER_CHAT_ROOM', roomData => {
       const { roomId, message } = roomData
-      // 檢查是否已有房間
       const currentRoom = Object.keys(socket.rooms).find(room => room !== socket.id)
       if (currentRoom === roomId) return
-      // 若有，則先離開
       if (currentRoom) {
         socket.leave(currentRoom)
       }
-      // 加入新的
       socket.join(roomId)
-      // 除了自己以外的人接收到訊息
       socket.to(roomId).emit('CHAT_ROOM_NOTIFY', {
         roomId,
         message
@@ -95,7 +89,6 @@ const initSocket = (server) => {
 
     socket.on('LEAVE_CHAT_ROOM', roomData => {
       const { roomId, message } = roomData
-      // 除了自己以外的人接收到訊息
       socket.to(roomId).emit('CHAT_ROOM_NOTIFY', {
         roomId,
         message
@@ -106,9 +99,8 @@ const initSocket = (server) => {
     socket.on('ROOM_CREATED', ({ name, creator, invitedUser }) => {
       invitedUser.forEach(invitedUser => {
         const socketId = onlineUsers.find(({ userId }) => userId === invitedUser)?.socketId
-        // 被邀請的人在線上才通知
         if (socketId) {
-          socket.to(socketId).emit('INVITED_TO_ROOM', { message: `${creator} 已將你加入 ${name} 聊天室`})
+          socket.to(socketId).emit('INVITED_TO_ROOM', { message: `${creator}    ${name} `})
         }
       })
     })

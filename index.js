@@ -10,7 +10,11 @@ const app = express()
 require('dotenv').config()
 
 const corsOptions = {
+<<<<<<< Updated upstream
   origin: [process.env.PROD2_CLIENT_URL, process.env.PROD_CLIENT_URL,process.env.DEV_CLIENT_URL, process.env.VERCEL_CLIENT_URL],
+=======
+  origin: [process.env.DEV_CLIENT_URL, process.env.PROD_CLIENT_URL],
+>>>>>>> Stashed changes
   credentials: true
 };
 
